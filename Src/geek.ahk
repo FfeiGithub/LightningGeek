@@ -79,7 +79,7 @@ Show_RecentDir_Menu(Current_Pair)
 		Menu, MyMenu, Add, %key%, MenuHandler
 	}
 	;Menu,MyMenu,color,4d9cf8
-	Menu,MyMenu, show
+	Menu,MyMenu, show,960,540
 }
 
 ; 以最大化的方式打开某个目录
