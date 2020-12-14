@@ -70,14 +70,15 @@ return
 
 cmd_ShowRecentDir:
 Dir_Map := Ini_Parser("config.ini","Dir")
-Show_RecentDir_Menu(Dir_Map)
+Dir_Map_index := Ini_Parser_Index("config.ini","Dir")
+Show_RecentDir_Menu(Dir_Map_index)
 return
 
 Show_RecentDir_Menu(Current_Pair)
 {
-	For key, value in Current_Pair
+	For index, element in Current_Pair
 	{
-		Menu, MyMenu, Add, %key%, MenuHandler
+		Menu, MyMenu, Add, %element%, MenuHandler
 	}
 	;Menu,MyMenu,color,4d9cf8
 	Menu,MyMenu, show
@@ -98,14 +99,15 @@ return
 
 cmd_ShowSysCmdMenu:
 Sys_Cmd_Map := Ini_Parser("config.ini","WindowsCmd")
-Show_SysCmd_Menu(Sys_Cmd_Map)
+Sys_Cmd_Index := Ini_Parser_Index("config.ini","WindowsCmd")
+Show_SysCmd_Menu(Sys_Cmd_Index)
 return
 
 Show_SysCmd_Menu(SysCmd_Pair)
 {
-	For key, value in SysCmd_Pair
+	for index, element in SysCmd_Pair 
 	{
-		Menu, SysCmdMenu, Add, %key%, SysCmdHandler
+		Menu, SysCmdMenu, Add, %element%, SysCmdHandler
 	}
 	;Menu,MyMenu,color,4d9cf8
 	Menu,SysCmdMenu, show
