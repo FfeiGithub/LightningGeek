@@ -3,6 +3,7 @@
 
 #Include initools.ahk
 #Include function.ahk
+#Include systemCmd.ahk
 
 ;映射打开第三方App的快捷键接口
 Key_Map := {}
@@ -79,7 +80,7 @@ Show_RecentDir_Menu(Current_Pair)
 		Menu, MyMenu, Add, %key%, MenuHandler
 	}
 	;Menu,MyMenu,color,4d9cf8
-	Menu,MyMenu, show,960,540
+	Menu,MyMenu, show
 }
 
 ; 以最大化的方式打开某个目录
@@ -93,6 +94,28 @@ cmd_CloseAllFolder:
 GroupAdd, Explore, ahk_class CabinetWClass
 GroupClose, Explore, A
 return
+
+
+cmd_ShowSysCmdMenu:
+Sys_Cmd_Map := Ini_Parser("config.ini","WindowsCmd")
+Show_SysCmd_Menu(Sys_Cmd_Map)
+return
+
+Show_SysCmd_Menu(SysCmd_Pair)
+{
+	For key, value in SysCmd_Pair
+	{
+		Menu, SysCmdMenu, Add, %key%, SysCmdHandler
+	}
+	;Menu,MyMenu,color,4d9cf8
+	Menu,SysCmdMenu, show
+}
+
+SysCmdHandler:
+sys_cmd_menu_value := Sys_Cmd_Map[A_ThisMenuItem]
+Call_SystemCmd(sys_cmd_menu_value)
+return
+
 
 
 
