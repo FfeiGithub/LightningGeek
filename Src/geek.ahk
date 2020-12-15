@@ -156,6 +156,10 @@ Cmd_DestroyToolsBar:
 Gui, Destroy
 return
 
+GuiClose:
+Gui, Destroy
+return
+
 Button:
 GuiControlGet, control, Focus
 current_exe := User_Tool_Map[control]
