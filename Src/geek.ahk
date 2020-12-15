@@ -143,7 +143,7 @@ Show_Tool_bar(Tool_Bar_Pair, User_Tool_Map)
 		
 	}
 	x_Position := A_ScreenWidth - 110
-	y_Position := A_ScreenHeight/2
+	y_Position := A_ScreenHeight/10
 	Gui,Show,X%x_Position% Y%y_Position% W90, Tools_AHK_Feifei
 	;Gui +Resize -MaximizeBox
 	Winset, Alwaysontop, , A
