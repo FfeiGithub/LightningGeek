@@ -65,7 +65,7 @@ return
 
 ;Pause the app
 Cmd_PauseApp:
-Pause
+Suspend
 return
 
 cmd_ShowRecentDir:
@@ -80,7 +80,6 @@ Show_RecentDir_Menu(Current_Pair)
 	{
 		Menu, MyMenu, Add, %element%, MenuHandler
 	}
-	;Menu,MyMenu,color,4d9cf8
 	Menu,MyMenu, show
 }
 
@@ -117,6 +116,69 @@ SysCmdHandler:
 sys_cmd_menu_value := Sys_Cmd_Map[A_ThisMenuItem]
 Call_SystemCmd(sys_cmd_menu_value)
 return
+
+
+^#6::
+;Cmd_ShowAppBar:
+
+User_Tool_Map := Ini_Parser("config.ini","MyTools")
+User_Tool_Index := Ini_Parser_Index("config.ini","MyTools")
+Show_Tool_bar(User_Tool_Index,User_Tool_Map)
+return
+
+Show_Tool_bar(Tool_Bar_Pair, User_Tool_Map)
+{
+	for index, element in Tool_Bar_Pair 
+	{
+		Gui, Add, Button, w70 h60 hwndIcon%index% gButton,
+		exe_Path := User_Tool_Map[element]
+		GuiButtonIcon(Icon%index%, exe_Path,, "w32 h32")
+		
+		%element:
+		
+	}
+	Gui,Show
+	Winset, Alwaysontop, , A
+	OnMessage(0x201, "move_Win")
+	WinSet, Style, -0xC00000, A
+	WinSet, Transparent, 250, A
+}
+
+Button:
+GuiControlGet, control, Focus
+current_exe := User_Tool_Map[control]
+RunOrActivateProgram(current_exe)
+PostMessage, 0xA1, 2
+return
+
+;Gui, Add, Button, w22 h22 hwndIcon
+;if !GuiButtonIcon(Icon, "some.exe") ; Example of Icon not found
+;    GuiButtonIcon(Icon, "shell32.dll") ; Not Found then do this
+;
+;Gui, Add, Button, w22 h22 hwndIcon
+;GuiButtonIcon(Icon, A_AhkPath)
+;Gui, Add, Button, w22 h22 hwndIcon
+;GuiButtonIcon(Icon, "shell32.dll", 23)
+;
+;Gui, Add, Button, w38 h60 hwndIcon1
+;Gui, Add, Button, w38 h60 hwndIcon2
+;Gui, Add, Button, w70 h60 hwndIcon3, Open
+;Gui, Add, Button, w70 h60 hwndIcon4, Save
+;Gui, Add, Button, w70 h60 hwndIcon5
+;GuiButtonIcon(Icon1, "shell32.dll", 1, "s32")
+;GuiButtonIcon(Icon2, "imageres.dll", 46, "s32 a1")
+;GuiButtonIcon(Icon3, "shell32.dll", 46, "s32 a0 l2")
+;GuiButtonIcon(Icon4, "shell32.dll", 259, "s32 a1 r2")
+;GuiButtonIcon(Icon5, "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",,"w32 h32")
+;
+;Gui, Show
+;
+;Return
+;
+;ButtonOpen:
+;MsgBox, %A_GuiControl%
+;return
+
 
 
 
