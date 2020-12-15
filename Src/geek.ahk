@@ -126,8 +126,13 @@ return
 
 Show_Tool_bar(Tool_Bar_Pair, User_Tool_Map)
 {
-	if WinActive("Tools")
+	if WinExist("Tools_AHK_Feifei")
+	{
+		WinActivate
 		return
+	}
+		
+
 	for index, element in Tool_Bar_Pair 
 	{
 		Gui, Add, Button, w70 h60 hwndIcon%index% gButton,
@@ -139,7 +144,7 @@ Show_Tool_bar(Tool_Bar_Pair, User_Tool_Map)
 	}
 	x_Position := A_ScreenWidth - 110
 	y_Position := A_ScreenHeight/2
-	Gui,Show,X%x_Position% Y%y_Position% W90, Tools
+	Gui,Show,X%x_Position% Y%y_Position% W90, Tools_AHK_Feifei
 	;Gui +Resize -MaximizeBox
 	Winset, Alwaysontop, , A
 	OnMessage(0x201, "move_Win")
