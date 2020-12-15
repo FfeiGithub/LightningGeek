@@ -118,9 +118,7 @@ Call_SystemCmd(sys_cmd_menu_value)
 return
 
 
-^#6::
-;Cmd_ShowAppBar:
-
+Cmd_ShowToolsBar:
 User_Tool_Map := Ini_Parser("config.ini","MyTools")
 User_Tool_Index := Ini_Parser_Index("config.ini","MyTools")
 Show_Tool_bar(User_Tool_Index,User_Tool_Map)
@@ -128,6 +126,8 @@ return
 
 Show_Tool_bar(Tool_Bar_Pair, User_Tool_Map)
 {
+	if WinActive("Tools")
+		return
 	for index, element in Tool_Bar_Pair 
 	{
 		Gui, Add, Button, w70 h60 hwndIcon%index% gButton,
@@ -137,12 +137,19 @@ Show_Tool_bar(Tool_Bar_Pair, User_Tool_Map)
 		%element:
 		
 	}
-	Gui,Show
+	x_Position := A_ScreenWidth - 110
+	y_Position := A_ScreenHeight/2
+	Gui,Show,X%x_Position% Y%y_Position% W90, Tools
+	;Gui +Resize -MaximizeBox
 	Winset, Alwaysontop, , A
 	OnMessage(0x201, "move_Win")
 	WinSet, Style, -0xC00000, A
 	WinSet, Transparent, 250, A
 }
+
+Cmd_DestroyToolsBar:
+Gui, Destroy
+return
 
 Button:
 GuiControlGet, control, Focus
