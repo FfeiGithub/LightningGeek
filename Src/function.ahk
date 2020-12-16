@@ -175,6 +175,31 @@ move_Win()
     PostMessage, 0xA1, 2
 }
 
+SetTitleMatchMode RegEx
+return
+
+; show cmd.exe in currentWindow
+#IfWinActive
+OpenCmdInCurrent()
+{
+	WinGetText, full_path, A
+	StringSplit, word_array, full_path, `n
+	full_path = %word_array9%
+	full_path := RegExReplace(full_path, "^地址: ", "")
+
+	; Just in case - remove all carriage returns (`r)
+	StringReplace, full_path, full_path, `r, , all
+
+	IfInString full_path, \
+	{
+		Run, cmd /K cd /D "%full_path%"
+	}
+	else
+	{
+		Run, cmd /K cd /D "C:\ "
+	}
+}
+
 
 
 

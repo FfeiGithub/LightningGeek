@@ -167,6 +167,13 @@ RunOrActivateProgram(current_exe)
 PostMessage, 0xA1, 2
 return
 
+
+#IfWinActive ahk_class ExploreWClass|CabinetWClass
+^g::
+OpenCmdInCurrent()
+return
+
+
 ;Gui, Add, Button, w22 h22 hwndIcon
 ;if !GuiButtonIcon(Icon, "some.exe") ; Example of Icon not found
 ;    GuiButtonIcon(Icon, "shell32.dll") ; Not Found then do this
