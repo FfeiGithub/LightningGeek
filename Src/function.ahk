@@ -175,13 +175,11 @@ move_Win()
     PostMessage, 0xA1, 2
 }
 
-SetTitleMatchMode RegEx
-return
 
 ; show cmd.exe in currentWindow
-#IfWinActive
 OpenCmdInCurrent()
 {
+	SetTitleMatchMode RegEx
 	WinGetText, full_path, A
 	StringSplit, word_array, full_path, `n
 	full_path = %word_array9%

@@ -5,6 +5,10 @@
 #Include function.ahk
 #Include systemCmd.ahk
 
+
+Hotkey,IfWinActive, ahk_class ExploreWClass|CabinetWClass
+Hotkey,#g,cmd_ShowCmdInCurrentDir
+Hotkey, IfWinActive
 ;映射打开第三方App的快捷键接口
 Key_Map := {}
 Key_Map := Ini_Parser("config.ini","App")
@@ -25,6 +29,10 @@ For key, value in Cmd_Map
 {
 	Hotkey,%key%,%value%
 }
+
+cmd_ShowCmdInCurrentDir:
+OpenCmdInCurrent()
+return
 
 ;Run the web
 RunWeb:
@@ -167,11 +175,6 @@ RunOrActivateProgram(current_exe)
 PostMessage, 0xA1, 2
 return
 
-
-#IfWinActive ahk_class ExploreWClass|CabinetWClass
-^g::
-OpenCmdInCurrent()
-return
 
 
 ;Gui, Add, Button, w22 h22 hwndIcon
