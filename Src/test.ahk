@@ -100,3 +100,97 @@ if (A_GuiEvent = "DoubleClick")
 }	
 return
 
+
+; 对目录进行排序
+#IfWinActive, ahk_class CabinetWClass
+c:: ;explorer - sort files by date modified
+;#IfWinActive, ahk_class ExploreWClass
+;n:: ;explorer - sort files by date modified
+WinGet, hWnd, ID, A
+for oWin in ComObjCreate("Shell.Application").Windows
+
+for oWin in ComObjCreate("Shell.Application").Windows
+{
+	;msgbox flag %flag%
+	if (oWin.HWND = hWnd)
+	{
+		if (flag==0)
+		{	
+		;MsgBox, % oWin.Document.SortColumns ;show current sort columns
+		oWin.Document.SortColumns := "prop:System.DateModified;" ;sort by date modified ascending (oldest first)
+		;oWin.Document.SortColumns := "prop:-System.DateModified;" ;sort by date modified descending (newest first)
+		;oWin.Document.SortColumns := "prop:System.ItemNameDisplay;" ;sort by name ascending (A-Z)
+		;oWin.Document.SortColumns := "prop:-System.ItemNsameDisplay;" ;sort by name descending (A-Z)
+		flag=1
+		;MsgBox date0
+		break
+		}
+		else if (flag==1)
+		{
+		;MsgBox, % oWin.Document.SortColumns ;show current sort columns
+		;oWin.Document.SortColumns := "prop:System.DateModified;" ;sort by date modified ascending (oldest first)
+		oWin.Document.SortColumns := "prop:-System.DateModified;" ;sort by date modified descending (newest first)
+		;oWin.Document.SortColumns := "prop:System.ItemNameDisplay;" ;sort by name ascending (A-Z)
+		;oWin.Document.SortColumns := "prop:-System.ItemNameDisplay;" ;sort by name descending (A-Z)
+		;MsgBox date1
+		flag=0
+		break
+		}
+		else
+		{
+		flag=0
+		}
+	}
+}
+oWin := ""
+return
+
+#IfWinActive
+
+
+#IfWinActive, ahk_class CabinetWClass
+n:: ;explorer - sort files by date modified
+;#IfWinActive, ahk_class ExploreWClass
+;n:: ;explorer - sort files by date modified
+WinGet, hWnd, ID, A
+for oWin in ComObjCreate("Shell.Application").Windows
+{
+
+	
+	if (oWin.HWND = hWnd)
+	{
+		
+		if (flag==0)
+		{
+			msgbox name1
+		;MsgBox, % oWin.Document.SortColumns ;show current sort columns
+		;oWin.Document.SortColumns := "prop:System.DateModified;" ;sort by date modified ascending (oldest first)
+		;oWin.Document.SortColumns := "prop:-System.DateModified;" ;sort by date modified descending (newest first)
+		oWin.Document.SortColumns := "prop:System.ItemNameDisplay;" ;sort by name ascending (A-Z)
+		;oWin.Document.SortColumns := "prop:-System.ItemNameDisplay;" ;sort by name descending (A-Z)
+		flag=1
+		break
+		}
+		else if (flag==1)
+		{
+			
+		;MsgBox, % oWin.Document.SortColumns ;show current sort columns
+		;oWin.Document.SortColumns := "prop:System.DateModified;" ;sort by date modified ascending (oldest first)
+		;oWin.Document.SortColumns := "prop:-System.DateModified;" ;sort by date modified descending (newest first)
+		;oWin.Document.SortColumns := "prop:System.ItemNameDisplay;" ;sort by name ascending (A-Z)
+		oWin.Document.SortColumns := "prop:-System.ItemNameDisplay;" ;sort by name descending (A-Z)
+		flag=0
+		msgbox name2
+		break
+		}
+		else{
+		flag=0
+		}
+	}
+}
+oWin := ""
+return
+#IfWinActive
+
+esc::Reload
+
