@@ -5,7 +5,6 @@
 #Include function.ahk
 #Include systemCmd.ahk
 
-
 ;映射打开第三方App的快捷键接口
 Key_Map := {}
 Key_Map := Ini_Parser("config.ini","App")
@@ -98,8 +97,17 @@ Show_RecentDir_Menu(Current_Pair)
 	{
 		Menu, MyMenu, Add, %element%, MenuHandler
 	}
-	Menu,MyMenu, show
+	
+	Current_Exe_locate_dir := "打开程序所在目录"
+	close_all_open_dir_menuitem := "关闭所有打开目录"
+	Menu, MyMenu, Add, %Current_Exe_locate_dir%, cmd_ShowMyExeDir
+	Menu, MyMenu, Add, %close_all_open_dir_menuitem%, cmd_CloseAllFolder
+	Menu, MyMenu, show
 }
+
+cmd_ShowMyExeDir:
+Run, explorer.exe %A_WorkingDir%, C:\Windows, max
+return
 
 ; 以最大化的方式打开某个目录
 MenuHandler:
