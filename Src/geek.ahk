@@ -161,7 +161,7 @@ Show_Tool_bar(Tool_Bar_Pair, User_Tool_Map)
 {
 	if WinExist("Tools_AHK_Feifei")
 	{
-		WinActivate
+		Gui, Destroy
 		return
 	}
 		
