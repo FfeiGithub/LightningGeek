@@ -35,6 +35,7 @@ Hotkey, IfWinActive, ahk_class CabinetWClass
 Hotkey, F4, Cmd_OpenFileWithDefaultEditor
 return 
 
+; 以Notepat++ 打开对应的文档文件快捷键设定为F4保持和TotalCommand一致
 Cmd_OpenFileWithDefaultEditor:
 selectFilePath := % Explorer_GetSelection(hwnd)
 DefaultApp_Map := Ini_Parser("config.ini","DefaultApp")
@@ -103,7 +104,14 @@ Show_RecentDir_Menu(Current_Pair)
 ; 以最大化的方式打开某个目录
 MenuHandler:
 menu_value := Dir_Map[A_ThisMenuItem]
-Run, explorer.exe %menu_value%, C:\Windows, max
+IfInString menu_value, \
+{
+	Run, explorer.exe %menu_value%, C:\Windows, max
+}
+else
+{
+	Run, explorer.exe "C:\Users\%A_UserName%\%menu_value%"
+}
 return
 
 ;关闭所有资源管理器的目录
