@@ -26,9 +26,22 @@ For key, value in Cmd_Map
 {
 	Hotkey,%key%,%value%
 }
+
 ; 通过Ctrl + G在目录下打开cmd.exe
 Hotkey, IfWinActive, ahk_class CabinetWClass
 Hotkey, ^g,Cmd_ShowCmdInCurrentDir
+
+Hotkey, IfWinActive, ahk_class CabinetWClass
+Hotkey, F4, Cmd_OpenFileWithDefaultEditor
+return 
+
+Cmd_OpenFileWithDefaultEditor:
+selectFilePath := % Explorer_GetSelection(hwnd)
+DefaultApp_Map := Ini_Parser("config.ini","DefaultApp")
+Default_Editor := "Default_Text_Editor"
+Default_Editor_Addr := DefaultApp_Map[Default_Editor]
+Run,%Default_Editor_Addr% %selectFilePath%
+return
 
 ;Run the web
 RunWeb:
