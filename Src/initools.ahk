@@ -37,9 +37,9 @@
 			FKey := RegExMatch(value,  ".*=.*" ) ;正则表达式匹配key
 			if  FKey =  1
 			{
-				TKey := RegExReplace(value,  "(.*)=.*" ,  "$1" ) ;正则替换并赋值临时key
+				TKey := RegExReplace(value,  "(.*?)=(.*)" ,  "$1" ) ;正则替换并赋值临时key
 				StringReplace, TKey, TKey, ., _, All
-				TValue := RegExReplace(value,  ".*=(.*)" ,  "$1" ) ;正则替换并赋值临时value
+				TValue := RegExReplace(value,  "(.*?)=(.*)" ,  "$2" ) ;正则替换并赋值临时value
 				keyValueMap[TKey] := TValue
 			}
 		}	
@@ -87,9 +87,9 @@ Ini_Parser_Index(ini_file_path="", section = "")
 			FKey := RegExMatch(value,  ".*=.*" ) ;正则表达式匹配key
 			if  FKey =  1
 			{
-				TKey := RegExReplace(value,  "(.*)=.*" ,  "$1" ) ;正则替换并赋值临时key
+				TKey := RegExReplace(value,  "(.*?)=(.*)" ,  "$1" ) ;正则替换并赋值临时key
 				StringReplace, TKey, TKey, ., _, All
-				TValue := RegExReplace(value,  ".*=(.*)" ,  "$1" ) ;正则替换并赋值临时value
+				TValue := RegExReplace(value,  "(.*?)=(.*)" ,  "$2" ) ;正则替换并赋值临时value
 				KeyValueMap.Push(TKey)
 			}
 		}	

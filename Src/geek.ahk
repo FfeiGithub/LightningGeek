@@ -150,6 +150,27 @@ sys_cmd_menu_value := Sys_Cmd_Map[A_ThisMenuItem]
 Call_SystemCmd(sys_cmd_menu_value)
 return
 
+; 显示网络链接地址的菜单
+Cmd_ShowWebMenu:
+Web_Menu_Map := Ini_Parser("config.ini","WebMenu")
+Web_Menu_Map_Index := Ini_Parser_Index("config.ini","WebMenu")
+Show_Web_Menu(Web_Menu_Map_Index)
+return
+
+Show_Web_Menu(Web_Menu_Pair)
+{
+	for index, element in Web_Menu_Pair 
+	{
+		Menu, WebCmdMenu, Add, %element%, WebMenuHandler
+	}
+	Menu,WebCmdMenu, show
+}
+
+WebMenuHandler:
+web_menu_value := Web_Menu_Map[A_ThisMenuItem]
+run,%web_menu_value%
+return 
+
 
 Cmd_ShowToolsBar:
 User_Tool_Map := Ini_Parser("config.ini","MyTools")
