@@ -67,6 +67,10 @@ Call_SystemCmd(argument="")
 		case "cmd_RunSysLanguageFirstChoose":
 		Run,ms-settings:regionlanguage,,Max
 		return
+		
+		case "cmd_GetEnvVarsConfig":
+		Run, sysdm.cpl,,Max
+		return
 
 	}
 }
