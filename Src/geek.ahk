@@ -9,22 +9,7 @@
 
 Menu, tray, add
 Menu, tray, add, 开机是否启动, TrayHandler
-return
- 
-TrayHandler:
-RegRead, OutputVar, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Run, Geek
 
-if(!OutputVar)
-{
-	RegWrite, REG_SZ, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Run, Geek, %A_ScriptFullPath%
-	MsgBox, 程序开机启动
-}
-Else
-{
-	RegDelete, HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run, Geek
-	MsgBox, 程序开机不启动
-}
-return
 
 ;映射打开第三方App的快捷键接口
 Key_Map := {}
@@ -246,7 +231,20 @@ Cmd_ShowCmdInCurrentDir:
 OpenCmdInCurrent()
 return
 
+TrayHandler:
+RegRead, OutputVar, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Run, Geek
 
+if(!OutputVar)
+{
+	RegWrite, REG_SZ, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Run, Geek, %A_ScriptFullPath%
+	MsgBox, 程序开机启动
+}
+Else
+{
+	RegDelete, HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run, Geek
+	MsgBox, 程序开机不启动
+}
+return
 
 ;Gui, Add, Button, w22 h22 hwndIcon
 ;if !GuiButtonIcon(Icon, "some.exe") ; Example of Icon not found
